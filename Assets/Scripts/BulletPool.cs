@@ -14,10 +14,6 @@ public class BulletPool : MonoBehaviour
     void OnEnable()
     {
         pool = new ObjectPool<GameObject>(CreatePooledBullet, OnGetBulletFromPool, OnReleasedToPool, OnDestroyFromPool);
-        //bulletMan = FindObjectOfType<BulletManager>();
-        //temp = new Vector2(bulletMan.mousPos.x - bulletMan.player.transform.position.x ,
-        //                  bulletMan.mousPos.y - bulletMan.player.transform.position.y);
-        //temp = bulletMan.main.ScreenToWorldPoint(Input.mousePosition);
 
     }
 
@@ -32,11 +28,14 @@ public class BulletPool : MonoBehaviour
     void OnGetBulletFromPool(GameObject b)
     {
         b.gameObject.SetActive(true);
+
+        Debug.Log("Bullet Enabled");
     }
 
     void OnReleasedToPool(GameObject b)
     {
         b.gameObject.SetActive(false);
+        Debug.Log("Bullet Released");
     }
 
     void OnDestroyFromPool(GameObject b)

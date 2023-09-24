@@ -26,14 +26,17 @@ public class BulletManager : MonoBehaviour
         main = Camera.main;
     }
 
-    public Vector2 SpawnBullet()
+    public GameObject SpawnBullet()
     {
-        GameObject go;
-        go = bulletPool.pool.Get();
-        go.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
-        mousPos = main.ScreenToWorldPoint(Input.mousePosition);
+        //Bullet go;
+        GameObject temp;
+        temp = bulletPool.pool.Get();
+        temp.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        Debug.Log(temp);
+        //go = temp;
+        //mousPos = main.ScreenToWorldPoint(Input.mousePosition);
         curSpawned++;
-        return mousPos;
+        return temp;
     }
 
     // Update is called once per frame

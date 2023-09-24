@@ -32,8 +32,12 @@ public class PlayerController : MonoBehaviour
     private bool dodgeOnCD = false;
     [SerializeField]
     private float cdTimer = 0;
+    [SerializeField]
+    float bulletForce = 20f;
 
     private BulletManager bulletMan;
+    private GameObject bulletFired;
+    private Rigidbody2D brb;
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -82,27 +86,25 @@ public class PlayerController : MonoBehaviour
                 cdTimer = 0;
             }
         }
+
+        mousePos = main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void FixedUpdate()
-    {
-        if (rb.velocity.magnitude > maxVelocity)
-        {
-            //Debug.Log("Working");
-            rb.velocity *= 0.5f;
-        }
-        rb.velocity += new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+    {  
+        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.deltaTime);
         
-        
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
     }
 
     private void Fire(InputAction.CallbackContext context)
     {
         mousePos = main.ScreenToWorldPoint(Input.mousePosition);
-        bulletMan.SpawnBullet();
-        //Instantiate<GameObject>(missile, mousePos, Quaternion.identity);
-        //Debug.Log(mousePos);
-        //Debug.Log("We fired");
+        bulletFired = bulletMan.SpawnBullet();
+        Rigidbody2D brb = bulletFired.GetComponent<Rigidbody2D>();
+        brb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);
     }
 
     private void Dodge(InputAction.CallbackContext context)

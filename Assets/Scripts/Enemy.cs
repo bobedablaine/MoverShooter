@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collider)
     {
+        //TODO: Must make it so enemies dont kill eachother
         Debug.Log("Collision");
         em.enemyPool.pool.Release(gameObject);
         //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
