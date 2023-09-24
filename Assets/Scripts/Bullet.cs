@@ -13,14 +13,14 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float maxVelocity = 9f;
     private BulletManager bulletMan;
-    private Vector3 temp;
+    public Vector2 temp;
     private Vector2 destinationDir;
     private Vector2 bulletDelta;
     // Start is called before the first frame update
     void Start()
     {
         bulletMan = FindObjectOfType<BulletManager>();
-        temp = new Vector3(bulletMan.mousPos.x - bulletMan.player.transform.position.x ,
+        temp = new Vector2(bulletMan.mousPos.x - bulletMan.player.transform.position.x ,
                           bulletMan.mousPos.y - bulletMan.player.transform.position.y);
         // temp = new Vector2(bulletMan.mousPos.x,
         //                    bulletMan.mousPos.y);
@@ -44,22 +44,22 @@ public class Bullet : MonoBehaviour
         }
         rb.velocity += new Vector2(temp.x * bulletSpeed, temp.y * bulletSpeed);
 
-        bulletDelta = transform.position;
-        if (bulletDelta.magnitude > 40)
-        { 
-            Debug.Log("Bullet Released into Pool");
-            // rb.velocity *= 0;
-            // rb.angularVelocity *= 0;
-            bulletMan.bulletPool.pool.Release(gameObject);
-        }
+        // bulletDelta = transform.position;
+        // if (bulletDelta.magnitude > 40)
+        // { 
+        //     Debug.Log("Bullet Released into Pool");
+        //     // rb.velocity *= 0;
+        //     // rb.angularVelocity *= 0;
+        //     bulletMan.bulletPool.pool.Release(gameObject);
+        // }
     }
 
-    void OnDisable()
+    void OnCollisionEnter2D(Collision2D collider)
     {
-        Debug.Log("Bullet Reset");
-        //gameObject.Disable();
-        // temp = new Vector3(bulletMan.mousPos.x - bulletMan.player.transform.position.x ,
-        //                   bulletMan.mousPos.y - bulletMan.player.transform.position.y);
+        Debug.Log("Collision");
+        bulletMan.bulletPool.pool.Release(gameObject);
+        //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }
+
 
 }
