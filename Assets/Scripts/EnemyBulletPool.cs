@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class BulletPool : MonoBehaviour
+public class EnemyBulletPool : MonoBehaviour
 {
     public ObjectPool<GameObject> pool {get; protected set;}
     [SerializeField]
@@ -13,11 +13,11 @@ public class BulletPool : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        pool = new ObjectPool<GameObject>(CreatePooledBullet, OnGetBulletFromPool, OnReleasedToBulletPool, OnDestroyFromBulletPool);
+        pool = new ObjectPool<GameObject>(CreatePooledEnemyBullet, OnGetEnemyBulletFromPool, OnReleasedToEnemyBulletPool, OnDestroyFromEnemyBulletPool);
 
     }
 
-    GameObject CreatePooledBullet()
+    GameObject CreatePooledEnemyBullet()
     {
         GameObject obj = Instantiate(bulletPrefab);
         obj.SetActive(false);
@@ -25,20 +25,17 @@ public class BulletPool : MonoBehaviour
         return obj;
     }
 
-    void OnGetBulletFromPool(GameObject b)
+    void OnGetEnemyBulletFromPool(GameObject b)
     {
         b.gameObject.SetActive(true);
-
-        //Debug.Log("Bullet Enabled");
     }
 
-    void OnReleasedToBulletPool(GameObject b)
+    void OnReleasedToEnemyBulletPool(GameObject b)
     {
         b.gameObject.SetActive(false);
-        //Debug.Log("Bullet Released");
     }
 
-    void OnDestroyFromBulletPool(GameObject b)
+    void OnDestroyFromEnemyBulletPool(GameObject b)
     {
         Destroy(b.gameObject);
     }

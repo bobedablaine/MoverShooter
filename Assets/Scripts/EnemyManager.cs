@@ -7,16 +7,19 @@ using UnityEngine.Pool;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    int maxEnemiesSpawned = 100, spawnsPerSecond = 1;
+    int maxEnemiesSpawned = 10, spawnsPerSecond = 1;
     [SerializeField]
     GameObject enemyPrefab;
     public UnitPool enemyPool {get; protected set;}
     float timer = 0;
     int curSpawned = 0;
+    private PlayerController player;
+    //private Vector2 distanceToPlayer;
     // Start is called before the first frame update
     void Start()
     {
         enemyPool = GetComponent<UnitPool>();
+        player = FindObjectOfType<PlayerController>();
     }
     
     GameObject SpawnEnemy()

@@ -22,11 +22,7 @@ public class PlayerController : MonoBehaviour
     Camera main;
 
     [SerializeField]
-    GameObject missile;
-    [SerializeField]
     float dodgeLength = 3f;
-    [SerializeField]
-    float maxVelocity = 9f;
     [SerializeField]
     float dodgeCD = 5f;
     private bool dodgeOnCD = false;
@@ -37,7 +33,6 @@ public class PlayerController : MonoBehaviour
 
     private BulletManager bulletMan;
     private GameObject bulletFired;
-    private Rigidbody2D brb;
     private void Awake()
     {
         playerControls = new PlayerInputActions();

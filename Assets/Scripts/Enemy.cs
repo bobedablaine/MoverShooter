@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    Camera main;
     PlayerController player;
     // Start is called before the first frame update
     [SerializeField]
@@ -11,11 +12,22 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int EnemyHealth = 5;
     private EnemyManager em;
+    private Vector2 distanceToPlayer;
+    [SerializeField]
+    Vector2 enemyRange = new Vector2(10, 10);
+    [SerializeField]
+    Rigidbody2D rb;
+    private EnemyBulletManager bulletMan;
+    [SerializeField]
+    float enemyBulletForce = 5f;
+    float timer = 0;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
         Debug.Log("Enemy Created");
         em = FindObjectOfType<EnemyManager>();
+        main = Camera.main;
+        bulletMan = FindObjectOfType<EnemyBulletManager>();
     }
 
     // Update is called once per frame
@@ -23,20 +35,43 @@ public class Enemy : MonoBehaviour
     {
         transform.position = 
             Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * MoveSpeed);
+        distanceToPlayer = transform.position - player.transform.position;
+        // if (distanceToPlayer.magnitude < enemyRange.magnitude)
+        // {
+        //     Fire();
+        // }
+        timer += Time.deltaTime;
+        if (timer > 5)
+        {
+            Fire();
+            timer = 0;
+        }
     }
 
-    // void OnTriggerEnter2D(Collider2D collider)
-    // {
-    //     Debug.Log("Trigger");
-    //     em.enemyPool.pool.Release(collider.gameObject);
-    //     must be Kinematic, other collider must be "Trigger"
-    // }
+    private void FixedUpdate()
+    {   
+        Vector2 lookDir = new Vector2(player.transform.position.x, player.transform.position.y) - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
+    }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    private void Fire()
+    {
+        //Vector2 mousePos = main.ScreenToWorldPoint(Input.mousePosition);
+        GameObject bulletFired = bulletMan.SpawnEnemyBullet(gameObject);
+        Debug.Log(bulletFired);
+        Rigidbody2D brb = bulletFired.GetComponent<Rigidbody2D>();
+        brb.AddForce(transform.up * enemyBulletForce, ForceMode2D.Impulse);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
     {
         //TODO: Must make it so enemies dont kill eachother
-        Debug.Log("Collision");
-        em.enemyPool.pool.Release(gameObject);
+        if (collider.gameObject.CompareTag("PlayerBullet") || collider.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Collision");
+            em.enemyPool.pool.Release(gameObject);
+        }
         //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }
 
