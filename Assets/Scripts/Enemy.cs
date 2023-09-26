@@ -14,13 +14,13 @@ public class Enemy : MonoBehaviour
     private EnemyManager em;
     private Vector2 distanceToPlayer;
     [SerializeField]
-    Vector2 enemyRange = new Vector2(10, 10);
+    float enemyRange = 7;
     [SerializeField]
     Rigidbody2D rb;
     private EnemyBulletManager bulletMan;
     [SerializeField]
     float enemyBulletForce = 5f;
-    float timer = 0;
+    float timer = 2;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -36,13 +36,12 @@ public class Enemy : MonoBehaviour
         transform.position = 
             Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * MoveSpeed);
         distanceToPlayer = transform.position - player.transform.position;
-        // if (distanceToPlayer.magnitude < enemyRange.magnitude)
-        // {
-        //     Fire();
-        // }
         timer += Time.deltaTime;
-        if (timer > 5)
+        
+        if (distanceToPlayer.magnitude < enemyRange && timer > 3)
         {
+            //Debug.Log("distanceToPlayer Mag: " + distanceToPlayer.magnitude);
+            //Debug.Log("enemyRange Mag: " + enemyRange);
             Fire();
             timer = 0;
         }
@@ -57,7 +56,6 @@ public class Enemy : MonoBehaviour
 
     private void Fire()
     {
-        //Vector2 mousePos = main.ScreenToWorldPoint(Input.mousePosition);
         GameObject bulletFired = bulletMan.SpawnEnemyBullet(gameObject);
         Debug.Log(bulletFired);
         Rigidbody2D brb = bulletFired.GetComponent<Rigidbody2D>();
@@ -71,6 +69,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Collision");
             em.enemyPool.pool.Release(gameObject);
+            em.curSpawned--;
         }
         //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }

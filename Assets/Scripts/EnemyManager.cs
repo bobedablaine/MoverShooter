@@ -12,8 +12,10 @@ public class EnemyManager : MonoBehaviour
     GameObject enemyPrefab;
     public UnitPool enemyPool {get; protected set;}
     float timer = 0;
-    int curSpawned = 0;
+    public int curSpawned = 0;
     private PlayerController player;
+    [SerializeField]
+    float enemySpawnRange = 7;
     //private Vector2 distanceToPlayer;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,15 @@ public class EnemyManager : MonoBehaviour
     {
         GameObject go;
         go = enemyPool.pool.Get();
-        go.transform.position = new Vector2(Random.Range(-8, 8), Random.Range(-8, 8));
+        //go.transform.position = new Vector2(Random.Range(-(player.transform.position.x-8), ), Random.Range(-8, 8));
+        go.transform.position = Random.insideUnitCircle * enemySpawnRange;
+        Vector2 temp = go.transform.position - player.transform.position;
+        Debug.Log("Enemy Spawn: " + temp);
+        if (temp.x < 2 || temp.y < 2)
+        {
+            temp += new Vector2(2, 2);
+        }
+        go.transform.position += new Vector3(2, 2, 0);
         curSpawned++;
         return go;
     }
