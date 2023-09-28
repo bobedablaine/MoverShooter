@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField]
     RectTransform healthbarForeground;
+    [SerializeField]
+    RectTransform staminaForeground;
     public PlayerInputActions playerControls;
     Vector2 moveDirection;
     private InputAction move;
@@ -25,25 +27,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float dodgeLength = 3f;
     [SerializeField]
-    float dodgeCD = 5f;
-    private bool dodgeOnCD = false;
-    [SerializeField]
-    private float cdTimer = 0;
-    [SerializeField]
     float bulletForce = 20f;
     [SerializeField]
     float maxHealth = 100f;
     public float curHealth = 0;
-    float healthbarMaxWidth = 12f;
+    float healthbarMaxWidth = 247.58f;
     public float bulletDamage = 20f;
     private BulletManager bulletMan;
     private GameObject bulletFired;
+    [SerializeField]
+    float maxStamina = 10f;
+    public float curStamina = 0;
+    float staminabarMaxWidth = 247.58f;
+    [SerializeField]
+    float dodgeCost = 5f;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
         main = Camera.main;
         bulletMan = FindObjectOfType<BulletManager>();
         curHealth = maxHealth;
+        curStamina = maxStamina;
     }
 
     private void OnEnable()
@@ -78,15 +83,12 @@ public class PlayerController : MonoBehaviour
         moveDirection = move.ReadValue<Vector2>();
         
         //Dodge Cooldown Timer
-        if (dodgeOnCD)
+        if (curStamina < maxStamina)
         {
-            cdTimer += Time.deltaTime;
-            if (cdTimer > dodgeCD)
-            {
-                dodgeOnCD = false;
-                cdTimer = 0;
-            }
+            staminaForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, staminabarMaxWidth * (curStamina/maxStamina));
+            curStamina += Time.deltaTime;
         }
+
 
         mousePos = main.ScreenToWorldPoint(Input.mousePosition);
     }
@@ -110,10 +112,10 @@ public class PlayerController : MonoBehaviour
 
     private void Dodge(InputAction.CallbackContext context)
     {
-        if (!dodgeOnCD)
+        if (curStamina > dodgeCost)
         {
             rb.position += new Vector2(moveDirection.x*dodgeLength, moveDirection.y*dodgeLength);
-            dodgeOnCD = true;
+            curStamina -= 5;
         }
         
     }
@@ -121,6 +123,7 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("Trigger");
+        if (curHealth-- < 0) curHealth = maxHealth;
         healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
     }
 
