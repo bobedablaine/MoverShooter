@@ -31,7 +31,7 @@ public class EnemyManager : MonoBehaviour
         //go.transform.position = new Vector2(Random.Range(-(player.transform.position.x-8), ), Random.Range(-8, 8));
         go.transform.position = Random.insideUnitCircle * enemySpawnRange;
         Vector2 temp = go.transform.position - player.transform.position;
-        Debug.Log("Enemy Spawn: " + temp);
+        //Debug.Log("Enemy Spawn: " + temp);
         if (temp.x < 2 || temp.y < 2)
         {
             temp += new Vector2(2, 2);

@@ -8,6 +8,8 @@ public class UnitPool : MonoBehaviour
     public ObjectPool<GameObject> pool {get; protected set;}
     [SerializeField]
     GameObject enemyPrefab;
+    [SerializeField]
+    EnemyManager enemyMan;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -30,6 +32,7 @@ public class UnitPool : MonoBehaviour
     void OnReleasedToPool(GameObject b)
     {
         b.gameObject.SetActive(false);
+        enemyMan.curSpawned--;
     }
 
     void OnDestroyFromPool(GameObject b)

@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     float moveSpeed = 5f;
     [SerializeField]
     Rigidbody2D rb;
-
+    [SerializeField]
+    RectTransform healthbarForeground;
     public PlayerInputActions playerControls;
     Vector2 moveDirection;
     private InputAction move;
@@ -30,7 +31,11 @@ public class PlayerController : MonoBehaviour
     private float cdTimer = 0;
     [SerializeField]
     float bulletForce = 20f;
-
+    [SerializeField]
+    float maxHealth = 100f;
+    public float curHealth = 0;
+    float healthbarMaxWidth = 12f;
+    public float bulletDamage = 20f;
     private BulletManager bulletMan;
     private GameObject bulletFired;
     private void Awake()
@@ -38,6 +43,7 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerInputActions();
         main = Camera.main;
         bulletMan = FindObjectOfType<BulletManager>();
+        curHealth = maxHealth;
     }
 
     private void OnEnable()
@@ -111,4 +117,11 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log("Trigger");
+        healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
+    }
+
 }

@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float MoveSpeed = 1f;
     [SerializeField]
-    int EnemyHealth = 5;
+    float enemyHealth = 20f;
     private EnemyManager em;
     private Vector2 distanceToPlayer;
     [SerializeField]
@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float enemyBulletForce = 5f;
     float timer = 2;
+    [SerializeField]
+    float collisionDamage = 20f;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -65,11 +67,17 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         //TODO: Must make it so enemies dont kill eachother
-        if (collider.gameObject.CompareTag("PlayerBullet") || collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("PlayerBullet"))
         {
-            Debug.Log("Collision");
+            enemyHealth -= player.bulletDamage;
+            Debug.Log("Enemy Hit by Player Bullet");
             em.enemyPool.pool.Release(gameObject);
-            em.curSpawned--;
+        }
+        else if (collider.gameObject.CompareTag("Player"))
+        {
+            player.curHealth -= collisionDamage;
+            Debug.Log("Enemy Hit by Player Body");
+            em.enemyPool.pool.Release(gameObject);
         }
         //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }

@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField]
     float bulletSpeed = 1f;
     [SerializeField]
-    int BulletDamage = 5;
+    public float bulletDamage = 20f;
     private EnemyBulletManager bulletMan;
     private Vector2 distanceFromPlayer;
     PlayerController player;
@@ -27,16 +27,15 @@ public class EnemyBullet : MonoBehaviour
             bulletMan.bulletPool.pool.Release(gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         
         if (collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision");
+            player.curHealth -= bulletDamage;
+            Debug.Log("Hit by Enemy Bullet");
             bulletMan.bulletPool.pool.Release(gameObject);
         }
-        
-        //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }
 
 
