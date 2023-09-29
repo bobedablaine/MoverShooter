@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     float timer = 2;
     [SerializeField]
     float collisionDamage = 20f;
+    Score score;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
         em = FindObjectOfType<EnemyManager>();
         main = Camera.main;
         bulletMan = FindObjectOfType<EnemyBulletManager>();
+        score = FindObjectOfType<Score>();
     }
 
     // Update is called once per frame
@@ -72,14 +74,19 @@ public class Enemy : MonoBehaviour
             enemyHealth -= player.bulletDamage;
             Debug.Log("Enemy Hit by Player Bullet");
             em.enemyPool.pool.Release(gameObject);
-        }
-        else if (collider.gameObject.CompareTag("Player"))
-        {
-            player.curHealth -= collisionDamage;
-            Debug.Log("Enemy Hit by Player Body");
-            em.enemyPool.pool.Release(gameObject);
+            score.score++;
         }
         //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player.curHealth -= collisionDamage;
+            Debug.Log("Player Hit by Enemy Body");
+            em.enemyPool.pool.Release(gameObject);
+        }
     }
 
     void OnDestroy()

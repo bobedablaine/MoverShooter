@@ -41,7 +41,9 @@ public class PlayerController : MonoBehaviour
     float staminabarMaxWidth = 247.58f;
     [SerializeField]
     float dodgeCost = 5f;
-
+    Score score;
+    [SerializeField]
+    DeathScreen deathScreen;
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviour
         bulletMan = FindObjectOfType<BulletManager>();
         curHealth = maxHealth;
         curStamina = maxStamina;
+        score = FindObjectOfType<Score>();
     }
 
     private void OnEnable()
@@ -123,8 +126,25 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         Debug.Log("Trigger");
-        if (curHealth-- < 0) curHealth = maxHealth;
+        if (curHealth-- < 0) PlayerDeath();
         healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (curHealth-- < 0) 
+        {
+            healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (0));
+            PlayerDeath();
+        }
+        healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
+    }
+
+    void PlayerDeath()
+    {
+        //gameObject.SetActive(false);
+        Time.timeScale = 0;
+        deathScreen.Setup(score.score);
     }
 
 }

@@ -10,6 +10,8 @@ public class UnitPool : MonoBehaviour
     GameObject enemyPrefab;
     [SerializeField]
     EnemyManager enemyMan;
+    [SerializeField]
+    GameObject player;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -26,6 +28,7 @@ public class UnitPool : MonoBehaviour
 
     void OnGetEnemyFromPool(GameObject b)
     {
+        //b.postition = player.position;
         b.gameObject.SetActive(true);
     }
 
