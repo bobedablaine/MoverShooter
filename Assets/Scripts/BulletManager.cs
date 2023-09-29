@@ -8,14 +8,7 @@ public class BulletManager : MonoBehaviour
 {   
     public Camera main;
 
-    [SerializeField]
-    int maxBulletsSpawned = 100;
-    [SerializeField]
-    GameObject bulletPrefab;
-    [SerializeField]
-    float MoveSpeed = 1f;
     public BulletPool bulletPool {get; protected set;}
-    int curSpawned = 0;
     public PlayerController player;
     public Vector2 mousPos;
     // Start is called before the first frame update
@@ -35,7 +28,6 @@ public class BulletManager : MonoBehaviour
         Debug.Log(temp);
         //go = temp;
         //mousPos = main.ScreenToWorldPoint(Input.mousePosition);
-        curSpawned++;
         return temp;
     }
 

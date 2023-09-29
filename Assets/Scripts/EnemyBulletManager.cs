@@ -8,12 +8,6 @@ public class EnemyBulletManager : MonoBehaviour
 {   
     public Camera main;
 
-    [SerializeField]
-    int maxBulletsSpawned = 100;
-    [SerializeField]
-    GameObject bulletPrefab;
-    [SerializeField]
-    float MoveSpeed = 1f;
     public EnemyBulletPool bulletPool {get; protected set;}
     public Vector2 mousPos;
     // Start is called before the first frame update

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Rigidbody2D rb;
     [SerializeField]
-    RectTransform healthbarForeground;
+    public RectTransform healthbarForeground;
     [SerializeField]
     RectTransform staminaForeground;
     public PlayerInputActions playerControls;
@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float bulletForce = 20f;
     [SerializeField]
-    float maxHealth = 100f;
+    public float maxHealth = 100f;
     public float curHealth = 0;
-    float healthbarMaxWidth = 247.58f;
+    public float healthbarMaxWidth = 247.58f;
     public float bulletDamage = 20f;
     private BulletManager bulletMan;
     private GameObject bulletFired;
@@ -137,7 +137,6 @@ public class PlayerController : MonoBehaviour
             healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (0));
             PlayerDeath();
         }
-        healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
     }
 
     void PlayerDeath()

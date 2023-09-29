@@ -84,6 +84,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player.curHealth -= collisionDamage;
+            player.healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, player.healthbarMaxWidth * (player.curHealth/player.maxHealth));
             Debug.Log("Player Hit by Enemy Body");
             em.enemyPool.pool.Release(gameObject);
         }

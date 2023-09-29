@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     [SerializeField]
-    float bulletSpeed = 1f;
-    [SerializeField]
     public float bulletDamage = 20f;
     private EnemyBulletManager bulletMan;
     private Vector2 distanceFromPlayer;

@@ -28,15 +28,16 @@ public class EnemyManager : MonoBehaviour
     {
         GameObject go;
         go = enemyPool.pool.Get();
-        //go.transform.position = new Vector2(Random.Range(-(player.transform.position.x-8), ), Random.Range(-8, 8));
-        go.transform.position = Random.insideUnitCircle * enemySpawnRange;
-        Vector2 temp = go.transform.position - player.transform.position;
+        go.transform.position = new Vector2(Random.Range((player.transform.position.x-10), player.transform.position.x+10), 
+                                            Random.Range((player.transform.position.y-10), player.transform.position.y+10));
+        //go.transform.position = Random.insideUnitCircle * enemySpawnRange;
+        //Vector2 temp = go.transform.position - player.transform.position;
         //Debug.Log("Enemy Spawn: " + temp);
-        if (temp.x < 2 || temp.y < 2)
-        {
-            temp += new Vector2(2, 2);
-        }
-        go.transform.position += new Vector3(2, 2, 0);
+        // if (temp.x < 2 || temp.y < 2)
+        // {
+        //     temp += new Vector2(2, 2);
+        // }
+        //go.transform.position += new Vector3(2, 2, 0);
         curSpawned++;
         return go;
     }
