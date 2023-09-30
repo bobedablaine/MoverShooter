@@ -23,4 +23,10 @@ public class SceneManage : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("LevelOne");
     }
+
+    public void LoadLevelTwo()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("LevelTwo");
+    }
 }
