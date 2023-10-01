@@ -75,11 +75,6 @@ public class PlayerController : MonoBehaviour
         fire.Disable();
         dodge.Disable();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -126,28 +121,29 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Trigger");
-        if (curHealth-- < 0) PlayerDeath();
+        if (curHealth <= 0) PlayerDeath();
         healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (curHealth-- < 0) 
+        if (curHealth <= 0) 
         {
             healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (0));
             PlayerDeath();
         }
     }
 
-    void PlayerDeath()
+    public void PlayerDeath()
     {
         //gameObject.SetActive(false);
         Time.timeScale = 0;
         if (score.sceneName == "LevelOne")
             deathScreen.DeathSetActive(score.score, score.highscore1);
         if (score.sceneName == "LevelTwo")
-            deathScreen.DeathSetActive(score.score, score.highscore2);
+            deathScreen.DeathSetActive(score.score, score.highscore2); 
+        if (score.sceneName == "LevelThree")
+            deathScreen.DeathSetActive(score.score, score.highscore3);
     }
 
 }

@@ -20,7 +20,6 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         distanceFromPlayer = transform.position - player.transform.position;
-        //Debug.Log(distanceFromPlayer.magnitude);
         if (distanceFromPlayer.magnitude > 15)
             bulletMan.bulletPool.pool.Release(gameObject);
     }
@@ -31,7 +30,6 @@ public class EnemyBullet : MonoBehaviour
         if (collider.gameObject.CompareTag("Player"))
         {
             player.curHealth -= bulletDamage;
-            Debug.Log("Hit by Enemy Bullet");
             bulletMan.bulletPool.pool.Release(gameObject);
         }
     }

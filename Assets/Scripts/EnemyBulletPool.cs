@@ -8,8 +8,6 @@ public class EnemyBulletPool : MonoBehaviour
     public ObjectPool<GameObject> pool {get; protected set;}
     [SerializeField]
     GameObject bulletPrefab;
-    //private BulletManager bulletMan;
-    //private Vector2 temp;
     // Start is called before the first frame update
     void OnEnable()
     {

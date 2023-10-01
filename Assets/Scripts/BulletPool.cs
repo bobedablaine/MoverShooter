@@ -28,14 +28,11 @@ public class BulletPool : MonoBehaviour
     void OnGetBulletFromPool(GameObject b)
     {
         b.gameObject.SetActive(true);
-
-        //Debug.Log("Bullet Enabled");
     }
 
     void OnReleasedToBulletPool(GameObject b)
     {
         b.gameObject.SetActive(false);
-        //Debug.Log("Bullet Released");
     }
 
     void OnDestroyFromBulletPool(GameObject b)

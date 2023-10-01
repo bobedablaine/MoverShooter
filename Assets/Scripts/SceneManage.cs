@@ -29,4 +29,16 @@ public class SceneManage : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("LevelTwo");
     }
+
+    public void LoadLevelThree()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("LevelThree");
+    }
+
+    public void ExitGame()
+    {
+        Time.timeScale = 1;
+        Application.Quit();
+    }
 }

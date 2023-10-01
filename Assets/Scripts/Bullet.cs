@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         distanceFromPlayer = transform.position - player.transform.position;
-        //Debug.Log(distanceFromPlayer.magnitude);
         if (distanceFromPlayer.magnitude > 50)
             bulletMan.bulletPool.pool.Release(gameObject);
     }
@@ -27,10 +26,8 @@ public class Bullet : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Collision");
             bulletMan.bulletPool.pool.Release(gameObject);
         }
-        //Requires both objects have rigidbody2d and collider, with maximum 1 kinematic rigidbody
     }
 
 
