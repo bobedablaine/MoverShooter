@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     Score score;
     [SerializeField]
     DeathScreen deathScreen;
+    [SerializeField]
+    AudioSource onFireAudio;
     public Animator animator;
     private void Awake()
     {
@@ -107,6 +110,7 @@ public class PlayerController : MonoBehaviour
         
         Vector2 lookDir = mousePos - rb.position;
         brb.AddForce(lookDir.normalized * bulletForce, ForceMode2D.Impulse);
+        onFireAudio.Play();
     }
 
     private void Dodge(InputAction.CallbackContext context)
