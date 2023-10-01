@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     float bulletForce = 20f;
     [SerializeField]
     public float maxHealth = 100f;
-    public float curHealth = 0;
+    public float curHealth = 0f;
     public float healthbarMaxWidth = 247.58f;
     public float bulletDamage = 20f;
     private BulletManager bulletMan;
@@ -143,7 +143,10 @@ public class PlayerController : MonoBehaviour
     {
         //gameObject.SetActive(false);
         Time.timeScale = 0;
-        deathScreen.Setup(score.score);
+        if (score.sceneName == "LevelOne")
+            deathScreen.DeathSetActive(score.score, score.highscore1);
+        if (score.sceneName == "LevelTwo")
+            deathScreen.DeathSetActive(score.score, score.highscore2);
     }
 
 }

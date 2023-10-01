@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class DeathScreen : MonoBehaviour
 {
-    public Text scoretext;
+    public Text scoreText;
+    public Text highscoreText;
 
-    public void Setup(int score)
+    public void DeathSetActive(int score, int highscore)
     {
         gameObject.SetActive(true);
-        scoretext.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + score.ToString();
+        highscoreText.text = "High Score: " + highscore.ToString();
+
     }
 }
