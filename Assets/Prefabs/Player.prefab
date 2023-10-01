@@ -114,6 +114,7 @@ MonoBehaviour:
   curStamina: 0
   dodgeCost: 5
   deathScreen: {fileID: 0}
+  onFireAudio: {fileID: 0}
   animator: {fileID: 7219980141188637016}
 --- !u!50 &5946590132718160686
 Rigidbody2D:
@@ -206,5 +207,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.26}
+  m_Size: {x: 0.15, y: 0.17}
   m_EdgeRadius: 0
