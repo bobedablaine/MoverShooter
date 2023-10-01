@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Trigger");
         if (curHealth <= 0) PlayerDeath();
         healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, healthbarMaxWidth * (curHealth/maxHealth));
     }
