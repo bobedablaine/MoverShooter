@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     Score score;
     [SerializeField]
     DeathScreen deathScreen;
+    public Animator animator;
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
+        animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+        animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
         
         //Dodge Cooldown Timer
         if (curStamina < maxStamina)
@@ -99,10 +102,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {  
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.deltaTime);
-        
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
     }
 
     private void Fire(InputAction.CallbackContext context)
@@ -110,7 +109,9 @@ public class PlayerController : MonoBehaviour
         mousePos = main.ScreenToWorldPoint(Input.mousePosition);
         bulletFired = bulletMan.SpawnBullet();
         Rigidbody2D brb = bulletFired.GetComponent<Rigidbody2D>();
-        brb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);
+        
+        Vector2 lookDir = mousePos - rb.position;
+        brb.AddForce(lookDir.normalized * bulletForce, ForceMode2D.Impulse);
     }
 
     private void Dodge(InputAction.CallbackContext context)
