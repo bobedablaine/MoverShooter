@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
