@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float collisionDamage = 20f;
     Score score;
+    public Animator animator;
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -38,6 +40,13 @@ public class Enemy : MonoBehaviour
             Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * MoveSpeed);
         distanceToPlayer = transform.position - player.transform.position;
         timer += Time.deltaTime;
+
+        if (MoveSpeed != 0f) {
+            animator.SetBool("IsMoving", true);
+        }
+        else {
+            animator.SetBool("IsMoving", false);
+        }
         
         if (distanceToPlayer.magnitude < enemyRange && timer > 3)
         {
@@ -48,9 +57,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {   
-        Vector2 lookDir = new Vector2(player.transform.position.x, player.transform.position.y) - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+        
     }
 
     private void Fire()
@@ -58,7 +65,9 @@ public class Enemy : MonoBehaviour
         GameObject bulletFired = bulletMan.SpawnEnemyBullet(gameObject);
         Debug.Log(bulletFired);
         Rigidbody2D brb = bulletFired.GetComponent<Rigidbody2D>();
-        brb.AddForce(transform.up * enemyBulletForce, ForceMode2D.Impulse);
+
+        Vector2 lookDir = new Vector2(player.transform.position.x, player.transform.position.y) - rb.position;
+        brb.AddForce(lookDir.normalized * enemyBulletForce, ForceMode2D.Impulse);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
