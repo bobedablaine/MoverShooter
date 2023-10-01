@@ -28,7 +28,6 @@ public class UnitPool : MonoBehaviour
 
     void OnGetEnemyFromPool(GameObject b)
     {
-        //b.postition = player.position;
         b.gameObject.SetActive(true);
     }
 

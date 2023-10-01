@@ -34,7 +34,6 @@ public class Obstacle : MonoBehaviour
             player.curHealth -= player.maxHealth / 2;
             player.healthbarForeground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, player.healthbarMaxWidth * (player.curHealth/player.maxHealth));
             if (player.curHealth <= 0) player.PlayerDeath();
-            Debug.Log("Player Hit by Obstacle");
             Destroy(gameObject);
         }
     }

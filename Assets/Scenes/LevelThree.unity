@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 617234263}
   - component: {fileID: 617234262}
   - component: {fileID: 617234261}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11036,9 +11036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da94f616a26042b4b8bef0778d54f8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  main: {fileID: 0}
   player: {fileID: 0}
-  mousPos: {x: 0, y: 0}
 --- !u!114 &3700520959585943353
 MonoBehaviour:
   m_ObjectHideFlags: 0
