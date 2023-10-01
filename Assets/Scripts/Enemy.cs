@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Camera main;
     PlayerController player;
     // Start is called before the first frame update
     [SerializeField]
@@ -29,7 +28,6 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         Debug.Log("Enemy Created");
         em = FindObjectOfType<EnemyManager>();
-        main = Camera.main;
         bulletMan = FindObjectOfType<EnemyBulletManager>();
         score = FindObjectOfType<Score>();
     }

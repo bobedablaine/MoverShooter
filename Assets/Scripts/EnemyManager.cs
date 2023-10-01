@@ -16,6 +16,8 @@ public class EnemyManager : MonoBehaviour
     private PlayerController player;
     [SerializeField]
     float enemySpawnRange = 7;
+    [SerializeField]
+    
     //private Vector2 distanceToPlayer;
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,11 @@ public class EnemyManager : MonoBehaviour
         curSpawned++;
         return go;
     }
+
+    // GameObject SpawnObstacle()
+    // {
+
+    // }
 
     // Update is called once per frame
     void Update()
