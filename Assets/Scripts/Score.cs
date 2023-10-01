@@ -12,6 +12,7 @@ public class Score : MonoBehaviour
 
     public int highscore1;
     public int highscore2;
+    public int highscore3;
     public string sceneName;
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class Score : MonoBehaviour
     {
         highscore1 = PlayerPrefs.GetInt("highscore1", highscore1);
         highscore2 = PlayerPrefs.GetInt("highscore2", highscore2);
+        highscore3 = PlayerPrefs.GetInt("highscore3", highscore3);
         sceneName = SceneManager.GetActiveScene().name;
     }
 
@@ -43,6 +45,13 @@ public class Score : MonoBehaviour
             highscore2 = score;
 
             PlayerPrefs.SetInt("highscore2", highscore2);
+        }
+
+        if (score > highscore3 && sceneName == "LevelThree")
+        {
+            highscore3 = score;
+
+            PlayerPrefs.SetInt("highscore3", highscore3);
         }
     }
 }
