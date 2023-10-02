@@ -128,6 +128,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3464637949463748542, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
   m_PrefabInstance: {fileID: 2138721926212475371}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &616757161 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 165857299599265481, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
+  m_PrefabInstance: {fileID: 2138721926212475371}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &661660543 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6952471900091508947, guid: a45d82559b2e4394c8b1af95d5384f53, type: 3}
@@ -978,10 +983,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2099644661950507661, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2484894128370577198, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.12
@@ -1026,10 +1027,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3464637949463748542, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
+    - target: {fileID: 3929561551169654921, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 616757161}
     - target: {fileID: 3929561551169654921, guid: 7f3acdf04150f1c46be73e9490150313, type: 3}
       propertyPath: MoveSpeed
       value: 3

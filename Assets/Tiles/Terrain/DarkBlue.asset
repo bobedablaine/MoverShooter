@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DarkBlue
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 31b03aca88e7e114a89a60063eeb63fe, type: 3}
-  m_Color: {r: 0, g: 0.02000455, b: 0.8396226, a: 1}
+  m_Color: {r: 0, g: 0.09895584, b: 0.5283019, a: 1}
   m_Transform:
     e00: 1
     e01: 0

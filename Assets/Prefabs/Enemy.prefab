@@ -100,13 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53833689d485e34ea41193d80215e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 1
+  MoveSpeed: 3
   enemyHealth: 20
   enemyRange: 7
   rb: {fileID: 5168500922481354944}
   enemyBulletForce: 5
   collisionDamage: 20
-  animator: {fileID: 0}
+  animator: {fileID: 165857299599265481}
 --- !u!50 &5168500922481354944
 Rigidbody2D:
   serializedVersion: 4
